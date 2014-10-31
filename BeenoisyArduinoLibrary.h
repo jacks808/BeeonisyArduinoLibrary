@@ -7,7 +7,8 @@
 #include "Arduino.h"
 //Includes for the project BeenoisyArduinoLibrary here
 
-#include "BasicFunctions.h"
+#include "component/Functions/BasicFunctions.h"
+#include "component/Chep_5161AS/Basic.h"
 
 //end of includes here
 #ifdef __cplusplus
