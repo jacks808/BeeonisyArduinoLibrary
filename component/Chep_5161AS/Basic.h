@@ -8,19 +8,24 @@
 #ifndef Chep_5161AS_H_
 #define Chep_B5161AS_H_
 
-#endif /* 5161AS_H_ */
+#endif /* Chep_B5161AS_H_ */
 
-bool num0[] = {};
-bool num1[] = {};
-bool num2[] = {};
-bool num3[] = {};
-bool num4[] = {};
-bool num5[] = {};
-bool num6[] = {};
-bool num7[] = {};
-bool num8[] = {};
-bool num9[] = {};
-bool dot[] = {};
+bool T = true;
+bool F = false;
+
+bool nums[][10] = {
+//       0  1  2  3  4  5  6  7
+        { T, T, T, F, T, T, T, F }, // 0
+        { F, F, T, F, T, F, F, F }, // 1
+        { T, T, F, F, T, T, F, T }, // 2
+        { F, T, T, F, T, T, F, T }, // 3
+        { F, F, T, F, T, F, T, T }, // 4
+        { F, T, T, F, F, T, T, T }, // 5
+        { T, T, T, F, F, T, T, T }, // 6
+        { F, F, T, F, T, T, F, F }, // 7
+        { T, T, T, F, T, T, T, T }, // 8
+        { F, T, T, F, T, T, T, T }, // 9
+        };
 
 #include "Arduino.h"
 
@@ -28,327 +33,38 @@ bool dot[] = {};
  * 获得数字
  */
 bool* getNum(int num) {
-    return num1;
+    return nums[num];
 }
 
-bool Led5161ASSub(int led[], int num, bool dot) {
-    if (num > 9) {
-        return false;
+void Led5161ASSub(int led[], int num, bool dot) {
+    bool* isON = getNum(num);
+    for (int i = 0; i < 8; i++) {
+        if (isON[i]) {
+            digitalWrite(led[i], HIGH);
+        } else {
+            digitalWrite(led[i], LOW);
+        }
     }
-    // 显示负号
-    if (num < 0) {
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], LOW);
-        digitalWrite(led[3], LOW);
-        digitalWrite(led[4], LOW);
-        digitalWrite(led[5], LOW);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], HIGH);
-        return true;
-    }
-    switch (num) {
-    case 1:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], LOW);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], LOW);
-
-        break;
-    case 2:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], LOW);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 3:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 4:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], LOW);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 5:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], LOW);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 6:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], LOW);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 7:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], LOW);
-
-        break;
-    case 8:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-        break;
-    case 9:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 0:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], LOW);
-
-        break;
-    }
-
-    return true;
 }
 
-bool Led5161ASSubBreath(int led[], int num, int time, bool dot) {
-    if (num > 9) {
-        return false;
+void Led5161ASSubBreath(int led[], int num, int microTime, bool dot) {
+    //breath up
+    bool* isON = getNum(num);
+    for (int i = 0; i <= 255; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (isON[j]) {
+                analogWrite(led[j], i);
+            }
+        }
+        delayMicroseconds(microTime);
     }
-    // 显示负号
-    if (num < 0) {
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], LOW);
-        digitalWrite(led[3], LOW);
-        digitalWrite(led[4], LOW);
-        digitalWrite(led[5], LOW);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], HIGH);
-        return true;
+    //breath down
+    for (int i = 255; i >= 0; i--) {
+        for (int j = 0; j < 8; j++) {
+            if (isON[j]) {
+                analogWrite(led[j], i);
+            }
+        }
+        delayMicroseconds(microTime);
     }
-    switch (num) {
-    case 1:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], LOW);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], LOW);
-
-        break;
-    case 2:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], LOW);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 3:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 4:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], LOW);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 5:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], LOW);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 6:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], LOW);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 7:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], LOW);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], LOW);
-        digitalWrite(led[7], LOW);
-
-        break;
-    case 8:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-        break;
-    case 9:
-        digitalWrite(led[0], LOW);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], HIGH);
-
-        break;
-    case 0:
-        digitalWrite(led[0], HIGH);
-        digitalWrite(led[1], HIGH);
-        digitalWrite(led[2], HIGH);
-        if (dot)
-            digitalWrite(led[3], HIGH);
-        else
-            digitalWrite(led[3], LOW);
-        digitalWrite(led[4], HIGH);
-        digitalWrite(led[5], HIGH);
-        digitalWrite(led[6], HIGH);
-        digitalWrite(led[7], LOW);
-
-        break;
-    }
-
-    return true;
 }
