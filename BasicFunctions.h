@@ -9,9 +9,6 @@
 #ifndef FUNCTIONS_H_
 #define FUNCTIONS_H_
 
-void flash();
-void Led5161ASSub();
-
 #endif /* FUNCTIONS_H_ */
 
 #include "Arduino.h"
@@ -27,6 +24,26 @@ void flash(int led, int time) {
     delay(time);
     digitalWrite(led, LOW);
     delay(time);
+}
+/**
+ * 逐渐点亮
+ */
+void breathUp(int led, int time) {
+    for (int i = 0; i <= 255; i++) {
+        analogWrite(led, i);
+        delay(time);
+    }
+}
+/**
+ * 逐渐熄灭
+ * @led:引脚
+ * @time:步长
+ */
+void breathDown(int led, int time) {
+    for (int i = 255; i >= 0; i--) {
+        analogWrite(led, i);
+        delay(time);
+    }
 }
 
 /**
